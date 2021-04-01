@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container"
 import { makeStyles, createStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import { useContacts } from "./useContacts"
+import { ContactsTable } from "./ContactsTable"
 
 const useStyles = makeStyles((theme) =>
 	createStyles({
@@ -16,16 +17,8 @@ const useStyles = makeStyles((theme) =>
 
 
 export const Contacts = () => {
-	const classes = useStyles();
-
+	const classes = useStyles()
 	const contacts = useContacts()
-
-	if (contacts.isLoading) {
-		return <div> ...loading</div>
-	}
-	if (contacts.isError) {
-		return <div> ...error</div>
-	}
 
 	return (
 		<Container className={classes.root}>
@@ -36,7 +29,15 @@ export const Contacts = () => {
 				</Typography>
 				</Grid>
 				<Grid item xs={12}>
-					<> {contacts.data[0].name.first} </>
+					{(() => {
+						if (contacts.isLoading) {
+							return <div> ...loading</div>
+						}
+						if (contacts.isError) {
+							return <div> ...error</div>
+						}
+						return <ContactsTable data={contacts.data} />
+					})()}
 				</Grid>
 			</Grid>
 		</Container>

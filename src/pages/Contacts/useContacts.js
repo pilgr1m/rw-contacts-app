@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
 
-
 export const useContacts = () => {
     const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [isError, setIsError] = useState(false)
-    console.log("loading: ", isLoading)
+    // console.log("loading: ", isLoading)
 
     useEffect(() => {
-        console.log("effect")
+        // console.log("effect")
         const getContacts = async () => {
             try {
                 setIsLoading(true)
