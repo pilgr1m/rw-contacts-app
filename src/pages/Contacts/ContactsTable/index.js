@@ -11,57 +11,61 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import { CopyToClipboardText } from '../../../components/CopyToClipboardText'
+import { NATIONALITIES_HUMAN_NAME } from "../../../constanst/nationality"
 
 const useStyles = makeStyles({
-    table: {},
+	table: {},
 })
 
 export const ContactsTable = ({ data }) => {
-    console.log(data)
-    const classes = useStyles()
+	console.log(data)
+	const classes = useStyles()
 
-    return (
-        <>
-            <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="contacts table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Avatar</TableCell>
-                            <TableCell>Fullname</TableCell>
-                            <TableCell>Birthday</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Phone</TableCell>
-                            <TableCell>Location</TableCell>
-                            <TableCell align="right">Nationality</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data.map((contact) => (
-                            <TableRow key={contact.login.uuid}>
-                                <TableCell component="th" scope="row">
-                                    <Avatar alt="Remy Sharp" src={contact.picture.thumbnail} /></TableCell>
-                                <TableCell>
-                                    {contact.name.title} {contact.name.first} {contact.name.last}
-                                </TableCell>
-                                <TableCell>
-                                    <Typography>
-                                        {format(parseISO(contact.dob.date), "MM/dd/yyyy")}
-                                    </Typography>
-                                    <Typography>{contact.dob.age} years</Typography>
-                                </TableCell>
-                                <TableCell>
-                                    <CopyToClipboardText text={contact.email} />
-                                </TableCell>
-                                <TableCell>
-                                    <CopyToClipboardText text={contact.phone} />
-                                </TableCell>
-                                <TableCell>{contact.location.city}, {contact.location.country}</TableCell>
-                                <TableCell align="right">{contact.location.country}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </>
-    )
+	return (
+		<>
+			<TableContainer component={Paper}>
+				<Table className={classes.table} aria-label="contacts table">
+					<TableHead>
+						<TableRow>
+							<TableCell>Avatar</TableCell>
+							<TableCell>Fullname</TableCell>
+							<TableCell>Birthday</TableCell>
+							<TableCell>Email</TableCell>
+							<TableCell>Phone</TableCell>
+							<TableCell>Location</TableCell>
+							<TableCell align="right">Nationality</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{data.map((contact) => (
+							<TableRow key={contact.login.uuid}>
+								<TableCell component="th" scope="row">
+									<Avatar alt="Remy Sharp" src={contact.picture.thumbnail} /></TableCell>
+								<TableCell>
+									{contact.name.title} {contact.name.first} {contact.name.last}
+								</TableCell>
+								<TableCell>
+									<Typography>
+										{format(parseISO(contact.dob.date), "MM/dd/yyyy")}
+									</Typography>
+									<Typography>{contact.dob.age} years</Typography>
+								</TableCell>
+								<TableCell>
+									<CopyToClipboardText text={contact.email} />
+								</TableCell>
+								<TableCell>
+									<CopyToClipboardText text={contact.phone} />
+								</TableCell>
+								<TableCell>
+									<Typography>{contact.location.country}</Typography>
+									<Typography>{contact.location.city}, {contact.location.street.name} {contact.location.street.number}</Typography>
+								</TableCell>
+								<TableCell align="right">{NATIONALITIES_HUMAN_NAME[contact.nat]}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</TableContainer>
+		</>
+	)
 }
