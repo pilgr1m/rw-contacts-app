@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import { useContacts } from './useContacts'
 import { ContactsTable } from './ContactsTable'
 import { ToggleDataViewMode } from './ToggleDataViewMode'
+import { useDataViewMode } from './useDataViewMode'
 import Box from '@material-ui/core/Box'
 import { DATA_VIEW_MODE } from './ContactsTable/constans'
 
@@ -18,26 +19,13 @@ const useStyles = makeStyles((theme) =>
 		headContainer: {
 			marginBottom: theme.spacing(3),
 		}
-	}))
-
-// const DATA_VIEW_MODE = {
-// 	TABLE: "table",
-// 	GRID: "grid",
-// }
-
-const getInitialDataViewMode = () => {
-	return localStorage.getItem("dataViewMode") || DATA_VIEW_MODE.TABLE
-}
+	})
+)
 
 export const Contacts = () => {
 	const classes = useStyles()
 	const contacts = useContacts()
-	const [dataViewMode, setDataViewMode] = useState(getInitialDataViewMode)
-
-
-	useEffect(() => {
-		localStorage.setItem("dataViewMode", dataViewMode)
-	}, [dataViewMode])
+	const [dataViewMode, setDataViewMode] = useDataViewMode()
 
 	return (
 		<Container className={classes.root}>
@@ -75,7 +63,5 @@ export const Contacts = () => {
 			</Grid>
 		</Container>
 	)
-
-
 }
 

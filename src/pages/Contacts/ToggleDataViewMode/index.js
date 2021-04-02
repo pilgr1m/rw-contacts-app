@@ -1,4 +1,5 @@
-import { useCallback, PropTypes } from 'react'
+import { useCallback } from 'react'
+import PropTypes from 'prop-types'
 import ViewListIcon from '@material-ui/icons/ViewList'
 import ViewModuleIcon from '@material-ui/icons/ViewModule'
 import ToggleButton from '@material-ui/lab/ToggleButton'
